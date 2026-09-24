@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Aaron 🔥 Mi Mejor Amigo</title>
+<style>
+  :root { --azul:#38bdf8; --azul-fuerte:#0284c7; --fondo:#0f172a; --card:#1e293b; --texto:#e2e8f0; --blanco:#ffffff; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--fondo); color:var(--texto); overflow-x:hidden; }
+  body.locked { overflow:hidden; }
+  .estrellas { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; overflow:hidden; }
+  .estrella { position:absolute; top:-40px; animation: caer linear infinite; opacity:.7; }
+  @keyframes caer { to { transform: translateY(110vh) rotate(360deg); } }
+  header { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:2rem; background: radial-gradient(circle at 50% 20%, #1e3a5f 0%, #0f172a 70%); position:relative; z-index:2; }
+  .badge { background:var(--card); border:1px solid var(--azul); padding:.5rem 1.2rem; border-radius:50px; font-size:.9rem; margin-bottom:1rem; color:var(--azul); }
+  h1 { font-size: clamp(2.5rem, 8vw, 5rem); color:var(--blanco); line-height:1.1; }
+  h1 span { display:block; font-size: clamp(1.2rem, 4vw, 2rem); color:var(--azul); font-weight:400; margin-top:.5rem; }
+  .fecha { margin-top:1rem; font-size:1.1rem; background:var(--azul-fuerte); color:white; padding:.6rem 1.5rem; border-radius:50px; }
+  .btn { margin-top:2rem; background:var(--azul); color:#0f172a; padding:1rem 2rem; border:none; border-radius:50px; font-size:1rem; cursor:pointer; transition:.3s; text-decoration:none; font-weight:bold; }
+  .btn:hover { transform:scale(1.05); background:white; }
+  section { max-width:800px; margin:0 auto; padding:4rem 1.5rem; position:relative; z-index:2; }
+  h2 { text-align:center; font-size:2rem; color:var(--azul); margin-bottom:2rem; }
+  .card { background:var(--card); border:1px solid #334155; border-radius:20px; padding:2rem; margin-bottom:1.5rem; }
+  .timeline { border-left:3px solid var(--azul); padding-left:1.5rem; }
+  .timeline div { margin-bottom:1.5rem; position:relative; }
+  .timeline div::before { content:'⚡'; position:absolute; left:-2.3rem; top:0; background:var(--fondo); }
+  .razones { display:grid; grid-template-columns:1fr; gap:1rem; }
+  @media(min-width:600px){ .razones{ grid-template-columns:1fr 1fr; } }
+  .razon { background:var(--card); border:1px solid #334155; padding:1.5rem; border-radius:15px; text-align:center; font-size:1.1rem; }
+  .galeria { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; align-items:start; }
+  @media(max-width:600px){ .galeria{ grid-template-columns:1fr; } }
+  .polaroid { background:#f8fafc; color:#0f172a; border-radius:12px; padding:12px 12px 16px; box-shadow:0 10px 25px rgba(56,189,248,.25); position:relative; transition:.3s; }
+  .polaroid:hover { transform:scale(1.03) rotate(0deg)!important; }
+  .polaroid img { width:100%; height:auto; max-height:520px; object-fit:contain; border-radius:8px; background:#0f172a; display:block; }
+  .polaroid figcaption { text-align:center; font-weight:bold; font-size:1.05rem; color:var(--azul-fuerte); margin-top:.8rem; }
+  .polaroid::before { content:''; position:absolute; top:-12px; left:50%; transform:translateX(-50%) rotate(-3deg); width:90px; height:26px; background:rgba(56,189,248,.8); border-radius:3px; }
+  .polaroid:nth-child(1){ transform:rotate(-2deg); } .polaroid:nth-child(2){ transform:rotate(2deg); }
+  .polaroid.video-polaroid { grid-column:1/-1; max-width:560px; margin:0 auto; width:100%; transform:rotate(-1deg); border:2px solid var(--azul); box-shadow:0 15px 35px rgba(56,189,248,.35); }
+  .carta-cerrada { text-align:center; cursor:pointer; }
+  .sobre { font-size:5rem; display:inline-block; transition:.3s; }
+  .carta-cerrada:hover .sobre { transform:scale(1.2); }
+  #texto-carta { display:none; margin-top:1.5rem; line-height:1.8; background:#0b1220; border:1px solid var(--azul); padding:2rem; border-radius:15px; text-align:left; white-space:pre-wrap; min-height:200px; color:var(--texto); }
+  #texto-carta.escribiendo::after { content:'|'; color:var(--azul); animation: parpadeo .7s infinite; font-weight:bold; }
+  @keyframes parpadeo { 0%,100%{opacity:1;} 50%{opacity:0;} }
+  footer { text-align:center; padding:3rem 1rem; background:#020617; border-top:1px solid #1e293b; }
+  footer button { background:var(--azul); border:none; padding:1rem 2rem; border-radius:50px; font-size:1.1rem; color:#0f172a; font-weight:bold; cursor:pointer; margin-top:1rem; }
+  /* INTRO */
+  #intro { position:fixed; inset:0; z-index:100; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:2rem; background: radial-gradient(circle at 50% 30%, #1e3a5f 0%, #0f172a 70%); transition: opacity .9s ease, visibility .9s; }
+  #intro.oculto { opacity:0; visibility:hidden; pointer-events:none; }
+  #intro .sobre-anim { font-size:4.5rem; animation: latido 1.4s ease-in-out infinite; }
+  @keyframes latido { 0%,100%{ transform:scale(1);} 30%{ transform:scale(1.2);} 70%{ transform:scale(1.25);} }
+  #intro .mini-badge { background:rgba(56,189,248,.15); border:1px solid var(--azul); padding:.5rem 1.3rem; border-radius:50px; margin:1rem 0; animation: subir .8s ease both .2s; color:var(--azul); }
+  #intro h1.intro-titulo { font-size: clamp(3rem, 12vw, 6rem); color:white; line-height:1; }
+  #intro h1.intro-titulo span.letra { display:inline-block; opacity:0; animation: popLetra .6s cubic-bezier(.34,1.56,.64,1) forwards; }
+  @keyframes popLetra { from{ opacity:0; transform: translateY(40px) scale(.5);} to{ opacity:1; transform:none;} }
+  #intro .intro-sub { font-size: clamp(1.1rem, 4vw, 1.6rem); margin-top:.8rem; animation: subir .8s ease both 1.2s; color:var(--azul); }
+  @keyframes subir { from{ opacity:0; transform:translateY(20px);} to{ opacity:1; transform:none;} }
+  #intro .btn-entrar { margin-top:2rem; background:var(--azul); color:#0f172a; border:none; padding:1.1rem 2.5rem; border-radius:50px; font-size:1.15rem; font-weight:bold; cursor:pointer; animation: subir .8s ease both 1.6s; }
+  #intro .coras-intro { position:absolute; width:100%; height:100%; pointer-events:none; overflow:hidden; }
+  #intro .coras-intro span { position:absolute; bottom:-40px; animation: subirCora linear infinite; opacity:.8; }
+  @keyframes subirCora { to{ transform:translateY(-110vh);} }
+  header .anim { opacity:0; transform:translateY(30px); }
+  body.entrado header .anim { animation: subir .9s ease forwards; }
+  body.entrado header .anim:nth-child(1){ animation-delay:.1s;} body.entrado header .anim:nth-child(2){ animation-delay:.3s;}
+  body.entrado header .anim:nth-child(3){ animation-delay:.6s;} body.entrado header .anim:nth-child(4){ animation-delay:.9s;}
+  #modal-promesa { position:fixed; inset:0; z-index:200; display:flex; justify-content:center; align-items:center; padding:1.5rem; background:rgba(2,6,23,.8); opacity:0; visibility:hidden; transition:.5s; }
+  #modal-promesa.ver { opacity:1; visibility:visible; }
+  .modal-card { background:var(--card); border:1px solid var(--azul); border-radius:25px; padding:2.5rem 2rem; max-width:420px; width:100%; text-align:center; transform:scale(.7); transition:.5s; }
+  #modal-promesa.ver .modal-card { transform:scale(1); }
+  .modal-card h3 { color:var(--azul); font-size:1.6rem; margin:.8rem 0; }
+  .modal-card .btn-si { background:var(--azul); color:#0f172a; border:none; padding:1rem 2rem; border-radius:50px; font-size:1.1rem; font-weight:bold; cursor:pointer; width:100%; }
+  #promesa-ok { display:none; margin-top:1.2rem; background:#0b1220; border:2px dashed var(--azul); padding:1.2rem; border-radius:15px; }
+  .btn-cerrar { margin-top:1rem; background:none; border:none; color:#94a3b8; cursor:pointer; text-decoration:underline; }
+</style>
+</head>
+<body class="locked">
+<div id="intro">
+  <div class="coras-intro" id="coras-intro"></div>
+  <div class="sobre-anim">🎮🔥</div>
+  <div class="mini-badge">⚡ Tengo algo para ti, hermano ⚡</div>
+  <h1 class="intro-titulo" id="intro-titulo">Para Aaron</h1>
+  <div class="intro-sub">mi mejor amigo, mi hermano 💪</div>
+  <button class="btn-entrar" onclick="entrar()">Entrar 🔓</button>
+</div>
+<div class="estrellas" id="corazones"></div>
+<header>
+  <div class="badge anim">⚡ Día del Mejor Amigo ⚡</div>
+  <h1 class="anim">Para Aaron<span>mi mejor amigo, mi hermano</span></h1>
+  <div class="fecha anim">Los reales nunca fallan 🔥</div>
+  <a href="#historia" class="btn anim">Empezar sorpresa ↓</a>
+</header>
+<section id="historia">
+  <h2>Nuestra historia</h2>
+  <div class="card timeline">
+    <div><strong>¿Cómo nos conocimos?</strong><br>En prmimero de secundaria un baje xdd</div>
+    <div><strong>La más épica</strong><br>La vez que estabamos cagados que hasta orinaste en la puertad de tu cuarto XD</div>
+    <div><strong>Lo que nunca olvido</strong><br>La ve que fui a vivir contigo en Lima y estabamos en todas xd</div>
+  </div>
+</section>
+<section id="razones">
+  <h2>5 razones por las que eres el mejor</h2>
+  <div class="razones">
+    <div class="razon">1. Siempre estás presente 🤝</div>
+    <div class="razon">2. Lealtad total 🔒</div>
+    <div class="razon">3. Risas aseguradas 😂</div>
+    <div class="razon">4. Consejos reales 🧠</div>
+    <div class="razon">5. Eres único, Aaron ⚡</div>
+  </div>
+</section>
+<section id="recuerdos">
+  <h2>Momentos duros 📸</h2>
+  <div class="galeria">
+    <figure class="polaroid"><img src="fotos/foto1.jpg" alt="Recuerdo 1"><figcaption>Los OG 🔥</figcaption></figure>
+    <figure class="polaroid"><img src="fotos/foto2.jpg" alt="Recuerdo 2"><figcaption>Brothers 💪</figcaption></figure>
+    <figure class="polaroid video-polaroid">
+      <video controls playsinline preload="metadata" style="width:100%; height:auto; max-height:520px; border-radius:8px; background:#000; display:block;">
+        <source src="fotos/video.mp4" type="video/mp4">
+        Tu navegador no soporta video.
+      </video>
+      <figcaption>Nuestro video 🎬🔥</figcaption>
+    </figure>
+  </div>
+  <p style="text-align:center;opacity:.6;font-size:.9rem;margin-top:1rem">Pon tu video en aaron/fotos/video.mp4</p>
+</section>
+<section id="carta">
+  <h2>Palabras de hermano a hermano</h2>
+  <div class="card carta-cerrada" onclick="abrirCarta(this)">
+    <span class="sobre">✉️</span>
+    <p id="texto-toca">Toca para abrir</p>
+    <div id="texto-carta"></div>
+  </div>
+</section>
+<footer id="final">
+  <h3 style="color:var(--azul)">¿Brothers por siempre?</h3>
+  <button onclick="abrirModal()">¡Por siempre! 🤝🔥</button>
+  <p style="margin-top:1.5rem; opacity:.6; font-size:.9rem;">Hecho con respeto para Aaron • 2026</p>
+</footer>
+<div id="modal-promesa">
+  <div class="modal-card">
+    <div style="font-size:4rem">🤝🔥</div>
+    <h3>Pacto de brothers</h3>
+    <p>Aaron, ¿pacto de seguir siendo brothers, en las buenas y en las malas?</p>
+    <button class="btn-si" onclick="aceptarPromesa()">¡Lo firmo! ⚡</button>
+    <div id="promesa-ok">🔥 ¡Pacto sellado! 🔥<br>Brothers por siempre 💪<br><small>Rogger & Aaron • 2026</small></div>
+    <button class="btn-cerrar" onclick="cerrarModal()">cerrar</button>
+  </div>
+</div>
+<script>
+  const titulo = document.getElementById('intro-titulo');
+  const texto = titulo.textContent; titulo.innerHTML='';
+  [...texto].forEach((ch,i)=>{ let s=document.createElement('span'); s.className='letra'; s.textContent=ch===' '?'\u00A0':ch; s.style.animationDelay=(0.15+i*0.08)+'s'; titulo.appendChild(s); });
+  const ci=document.getElementById('coras-intro');
+  for(let i=0;i<20;i++){ let s=document.createElement('span'); s.textContent=['⚡','🔥','💪','🎮','✨'][Math.floor(Math.random()*5)]; s.style.left=Math.random()*100+'%'; s.style.fontSize=(14+Math.random()*22)+'px'; s.style.animationDuration=(3+Math.random()*4)+'s'; s.style.animationDelay=(Math.random()*3)+'s'; ci.appendChild(s); }
+  function entrar(){ document.getElementById('intro').classList.add('oculto'); document.body.classList.remove('locked'); document.body.classList.add('entrado'); window.scrollTo(0,0); }
+  const c=document.getElementById('corazones');
+  for(let i=0;i<25;i++){ let s=document.createElement('span'); s.className='estrella'; s.textContent=['⚡','🔥','✨','💪'][Math.floor(Math.random()*4)]; s.style.left=Math.random()*100+'vw'; s.style.fontSize=(12+Math.random()*20)+'px'; s.style.animationDuration=(4+Math.random()*5)+'s'; s.style.animationDelay=(Math.random()*5)+'s'; c.appendChild(s); }
+  function fiesta(){ for(let i=0;i<80;i++){ let s=document.createElement('span'); s.className='estrella'; s.textContent=['🔥','⚡','🎉','💪'][Math.floor(Math.random()*4)]; s.style.left=Math.random()*100+'vw'; s.style.top='100vh'; s.style.fontSize='20px'; s.style.position='fixed'; s.style.zIndex=300; s.style.pointerEvents='none'; s.style.animation='caer 3s linear forwards'; document.body.appendChild(s); setTimeout(()=>s.remove(),3000); } }
+  function abrirModal(){ document.getElementById('modal-promesa').classList.add('ver'); document.getElementById('promesa-ok').style.display='none'; }
+  function cerrarModal(){ document.getElementById('modal-promesa').classList.remove('ver'); }
+  function aceptarPromesa(){ document.getElementById('promesa-ok').style.display='block'; fiesta(); }
+  const mensajeCarta = ` Para mi Mejor Amigo Aaron,
+
+No todos entienden lo que es tener un hermano que no es de sangre. Tú eres eso.
+
+Gracias por estar en las buenas y en las malas, por los consejos sin filtro y por las risas que nadie más entiende.
+
+Esto es de brothers por siempre.
+
+Tu hermano,
+Rogger 🤝`;
+  let cartaEscribiendo=false;
+  function abrirCarta(card){
+    const sobre=card.querySelector('.sobre'); const toca=card.querySelector('#texto-toca'); const caja=document.getElementById('texto-carta');
+    if(sobre) sobre.style.display='none'; if(toca) toca.style.display='none';
+    if(cartaEscribiendo) return; if(caja.dataset.lista==='si'){ caja.style.display='block'; return; }
+    cartaEscribiendo=true; caja.style.display='block'; caja.classList.add('escribiendo'); caja.textContent='';
+    const letras=[...mensajeCarta]; let i=0;
+    (function escribir(){ if(i<letras.length){ caja.textContent+=letras[i]; i++; setTimeout(escribir,45); } else { caja.classList.remove('escribiendo'); caja.dataset.lista='si'; cartaEscribiendo=false; } })();
+  }
+</script>
+</body>
+</html>
